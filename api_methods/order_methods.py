@@ -26,8 +26,8 @@ class OrderMethods:
 
     @staticmethod
     @allure.step('Принять заказ')
-    def accept_order(id, courierId):
-        return requests.put(f'{URL.URL_ACCEPT_ORDER}{id}?courierId={courierId}')
+    def accept_order(id, courier_id):
+        return requests.put(f'{URL.URL_ACCEPT_ORDER}{id}?courierId={courier_id}')
     
     @staticmethod
     @allure.step('Завершить заказ')
