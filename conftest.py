@@ -1,4 +1,5 @@
 import pytest
+import json
 
 from api_methods.courier_methods import CourierMethods
 from api_methods.order_methods import OrderMethods
@@ -35,7 +36,7 @@ def get_courier_id_and_cleanup(create_courier_and_log_in):
 def get_ids_and_cancel_order_after(create_courier_and_log_in):
     courier= create_courier_and_log_in.json()
     courier_id = courier['id']
-    r = OrderMethods.create_order(Data.VALID_ORDER_DATA_BLACK)
+    r = OrderMethods.create_order(json.dumps(Data.VALID_ORDER_DATA_BLACK))
     track = r.json()
     i = OrderMethods.get_order_by_track(track['track'])
     order_id = i.json()['order']['id']
@@ -49,7 +50,7 @@ def get_ids_and_cancel_order_after(create_courier_and_log_in):
     
 @pytest.fixture
 def create_order_and_cancel_after():    
-    r = OrderMethods.create_order(Data.VALID_ORDER_DATA_BOTH)
+    r = OrderMethods.create_order(json.dumps(Data.VALID_ORDER_DATA_BOTH))
     track = r.json()['track']
     yield track
     
