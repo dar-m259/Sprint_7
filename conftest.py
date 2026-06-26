@@ -40,12 +40,11 @@ def get_ids_and_cancel_order_after(create_courier_and_log_in):
     track = r.json()
     i = OrderMethods.get_order_by_track(track['track'])
     order_id = i.json()['order']['id']
-    o_id = {}
-    o_id['id'] = order_id
+    order_id_data = {"id": order_id}
     in_delivery = i.json()['order']['inDelivery']
     yield order_id, courier_id
 
-    optional_finish_order(order_id, o_id, in_delivery)
+    optional_finish_order(in_delivery, order_id, order_id_data)
     optional_cleanup(create_courier_and_log_in)
     
 @pytest.fixture
